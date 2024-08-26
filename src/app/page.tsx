@@ -13,7 +13,7 @@ import Image from 'next/image'
 // Assume this is passed as a prop or set as an environment variable
 const DISCORD_AVATAR_URL = "https://cdn.discordapp.com/avatars/325699845031723010/3eb13f80d44c05a0f94e9fd0151e2fbd.webp"
 
-export default function Component() {
+export default function Home() {
   const [activeTab, setActiveTab] = useState('about')
 
   useEffect(() => {
