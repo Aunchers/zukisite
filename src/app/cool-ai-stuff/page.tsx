@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getApiData } from "@/components/ApiData";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import {
   Table,
   TableBody,
@@ -45,68 +47,36 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+interface ApiDataItem {
+  name: string;
+  users: number;
+  nsfw: string;
+  openSource: boolean;
+  owner: string;
+  tier: number;
+  notes: string;
+  models: string[];
+  links?: {
+    moremodels: string;
+  };
+}
 export default function Component() {
   const [activeTab, setActiveTab] = useState("overview");
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("users");
   const [sortOrder, setSortOrder] = useState("desc");
 
-  const apiData = [
-    {
-      name: "ZukiJourney",
-      users: 5265,
-      nsfw: "Use /unfilter, not /v1",
-      openSource: true,
-      owner: "Our Team",
-      tier: 1,
-      notes:
-        "Largest & Oldest GPT-4 API still continuously around. Offers other popular AI-related Bots too.",
-      models: ["GPT-4", "GPT-3.5", "DALL-E 2", "Stable Diffusion"],
-    },
-    {
-      name: "NagaAI",
-      users: 3143,
-      nsfw: "Forbidden",
-      openSource: false,
-      owner: "ZentixUA",
-      tier: 1,
-      notes:
-        "Honorary successor to ChimeraGPT, the largest API in history (15k users).",
-      models: ["GPT-4", "LLaMA 2", "Claude 2"],
-    },
-    {
-      name: "KrakenAI",
-      users: 632,
-      nsfw: "Allowed",
-      openSource: false,
-      owner: "PaniniCo",
-      tier: 1,
-      notes: "Small, long-term stable API. Runs on https://poe.com",
-      models: ["GPT-3.5", "BERT", "T5"],
-    },
-    {
-      name: "FreeGPT",
-      users: 475,
-      nsfw: "Forbidden",
-      openSource: false,
-      owner: "Fresed",
-      tier: 1,
-      notes:
-        "Small API maintained by a surprisingly committed dev. Good quality.",
-      models: ["GPT-3.5", "GPT-J", "BLOOM"],
-    },
-    {
-      name: "Shard",
-      users: 735,
-      nsfw: "Only OSS-Models",
-      openSource: false,
-      owner: "Puzzy",
-      tier: 2,
-      notes:
-        "Edgiest API with a controversial/questionable environment. Good service otherwise.",
-      models: ["LLaMA", "GPT-Neo", "EleutherAI"],
-    },
-  ];
+  const [apiData, setApiData] = useState<ApiDataItem[]>([]);
+
+  // Fetch data from server component
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getApiData();
+      setApiData(data);
+    }
+    fetchData();
+  }, []);
 
   const filteredAndSortedData = apiData
     .filter(
@@ -260,6 +230,13 @@ export default function Component() {
                             <li key={index}>{model}</li>
                           ))}
                         </ul>
+                        {api?.links?.moremodels && (
+                          <Button asChild>
+                            <Link href={String(api.links.moremodels)}>
+                              View More
+                            </Link>
+                          </Button>
+                        )}
                       </PopoverContent>
                     </Popover>
                   </TableCell>
