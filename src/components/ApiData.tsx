@@ -31,7 +31,7 @@ export async function getApiData() {
   return [
     {
       name: "ZukiJourney",
-      users: (await getGuildCount("zukijourney")) ?? 1000,
+      users: (await getGuildCount("zukijourney")) ?? 0,
       nsfw: "Use /unfilter, not /v1",
       openSource: true,
       owner: "Our Team",
@@ -43,7 +43,7 @@ export async function getApiData() {
     },
     {
       name: "NagaAI",
-      users: (await getGuildCount("nagaai")) ?? 1000,
+      users: (await getGuildCount("JxRBXBhabu")) ?? 0,
       nsfw: "Forbidden",
       openSource: false,
       owner: "ZentixUA",
@@ -54,7 +54,7 @@ export async function getApiData() {
     },
     {
       name: "KrakenAI",
-      users: (await getGuildCount("krakenai")) ?? 1000,
+      users: (await getGuildCount("krakenai")) ?? 0,
       nsfw: "Allowed",
       openSource: false,
       owner: "PaniniCo",
@@ -64,8 +64,8 @@ export async function getApiData() {
       links: { moremodels: "https://zukijourney.xyzbot.net/v1/models" },
     },
     {
-      name: "FreeGPT",
-      users: (await getGuildCount("freegpt")) ?? 1000,
+      name: "FresedGPT",
+      users: (await getGuildCount("JecEC5my4T")) ?? 0,
       nsfw: "Forbidden",
       openSource: false,
       owner: "Fresed",
@@ -77,7 +77,7 @@ export async function getApiData() {
     },
     {
       name: "Shard",
-      users: (await getGuildCount("shard")) ?? 1000,
+      users: (await getGuildCount("rY85WpENSt")) ?? 1000,
       nsfw: "Only OSS-Models",
       openSource: false,
       owner: "Puzzy",
