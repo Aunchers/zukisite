@@ -38,8 +38,13 @@ import {
   SortAsc,
   SortDesc,
   Info,
+  Cpu,
 } from "lucide-react";
-
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 export default function Component() {
   const [activeTab, setActiveTab] = useState("overview");
   const [searchTerm, setSearchTerm] = useState("");
@@ -56,6 +61,7 @@ export default function Component() {
       tier: 1,
       notes:
         "Largest & Oldest GPT-4 API still continuously around. Offers other popular AI-related Bots too.",
+      models: ["GPT-4", "GPT-3.5", "DALL-E 2", "Stable Diffusion"],
     },
     {
       name: "NagaAI",
@@ -66,6 +72,7 @@ export default function Component() {
       tier: 1,
       notes:
         "Honorary successor to ChimeraGPT, the largest API in history (15k users).",
+      models: ["GPT-4", "LLaMA 2", "Claude 2"],
     },
     {
       name: "KrakenAI",
@@ -75,6 +82,7 @@ export default function Component() {
       owner: "PaniniCo",
       tier: 1,
       notes: "Small, long-term stable API. Runs on https://poe.com",
+      models: ["GPT-3.5", "BERT", "T5"],
     },
     {
       name: "FreeGPT",
@@ -85,6 +93,7 @@ export default function Component() {
       tier: 1,
       notes:
         "Small API maintained by a surprisingly committed dev. Good quality.",
+      models: ["GPT-3.5", "GPT-J", "BLOOM"],
     },
     {
       name: "Shard",
@@ -95,6 +104,7 @@ export default function Component() {
       tier: 2,
       notes:
         "Edgiest API with a controversial/questionable environment. Good service otherwise.",
+      models: ["LLaMA", "GPT-Neo", "EleutherAI"],
     },
   ];
 
@@ -156,7 +166,7 @@ export default function Component() {
           </motion.button>
         </div>
       </div>
-      <div className="rounded-lg border bg-card text-card-foreground shadow-sm overflow-x-auto">
+      <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
         <Table>
           <TableHeader>
             <TableRow>
@@ -166,6 +176,7 @@ export default function Component() {
               <TableHead>Open Source</TableHead>
               <TableHead>Owner</TableHead>
               <TableHead>Tier</TableHead>
+              <TableHead>AI Models</TableHead>
               <TableHead className="w-[300px]">Notes</TableHead>
             </TableRow>
           </TableHeader>
@@ -227,6 +238,30 @@ export default function Component() {
                         <Star key={i} className="h-4 w-4 text-yellow-400" />
                       ))}
                     </div>
+                  </TableCell>
+                  <TableCell>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <motion.button
+                          className="flex items-center space-x-1 text-sm font-medium text-blue-600 hover:text-blue-800"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <Cpu className="h-4 w-4" />
+                          <span>{api.models.length} Models</span>
+                        </motion.button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-64">
+                        <h4 className="font-semibold mb-2">
+                          Available Models:
+                        </h4>
+                        <ul className="list-disc pl-4">
+                          {api.models.map((model, index) => (
+                            <li key={index}>{model}</li>
+                          ))}
+                        </ul>
+                      </PopoverContent>
+                    </Popover>
                   </TableCell>
                   <TableCell className="text-sm">{api.notes}</TableCell>
                 </motion.tr>
