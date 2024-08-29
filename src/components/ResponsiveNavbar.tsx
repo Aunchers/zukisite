@@ -17,7 +17,7 @@ const ResponsiveNavigation: React.FC<ResponsiveNavigationProps> = ({ activeTab, 
     <div className="ml-auto flex items-center">
       <Sheet>
         <SheetTrigger asChild>
-          <Button variant="ghost" size="icon" className="md:hidden">
+          <Button variant="ghost" size="icon" className="block md:hidden">
             <Menu className="h-6 w-6" />
             <span className="sr-only">Toggle navigation menu</span>
           </Button>
