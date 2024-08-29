@@ -9,12 +9,15 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { GithubIcon, LinkedinIcon, FileTextIcon, MailIcon, ExternalLinkIcon } from "lucide-react"
 import Link from 'next/link'
 import Image from 'next/image'
-
+import { useMediaQuery } from "@/hooks/use-media-query"
+import {Sheet, SheetContent, SheetTrigger} from '@/components/ui/sheet'
+import ResponsiveNavigation from '@/components/ResponsiveNavbar'
 // Assume this is passed as a prop or set as an environment variable
 const DISCORD_AVATAR_URL = "https://cdn.discordapp.com/avatars/325699845031723010/3eb13f80d44c05a0f94e9fd0151e2fbd.webp"
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('about')
+  const isDesktop = useMediaQuery("(min-width: 768px)")
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,18 +54,7 @@ export default function Home() {
           <span className="sr-only">Your Name</span>
           <span className="font-bold text-xl">YN</span>
         </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
-          {['about', 'projects', 'skills', 'contact'].map((item) => (
-            <Button
-              key={item}
-              variant="ghost"
-              className={`text-sm font-medium ${activeTab === item ? 'text-primary' : 'text-muted-foreground'}`}
-              onClick={() => scrollToSection(item)}
-            >
-              {item.charAt(0).toUpperCase() + item.slice(1)}
-            </Button>
-          ))}
-        </nav>
+        <ResponsiveNavigation activeTab={activeTab} scrollToSection={scrollToSection} />
       </header>
       <main className="flex-1 pt-16">
         <section id="about" className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-gradient-to-r from-purple-100 via-pink-100 to-blue-100 dark:from-purple-900 dark:via-pink-900 dark:to-blue-900">
