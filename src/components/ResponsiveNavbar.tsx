@@ -3,8 +3,15 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 
-const ResponsiveNavigation = ({ activeTab, scrollToSection }) => {
-  const navItems = ['about', 'projects', 'skills', 'contact'];
+type NavItem = 'about' | 'projects' | 'skills' | 'contact';
+
+interface ResponsiveNavigationProps {
+  activeTab: NavItem;
+  scrollToSection: (section: NavItem) => void;
+}
+
+const ResponsiveNavigation: React.FC<ResponsiveNavigationProps> = ({ activeTab, scrollToSection }) => {
+  const navItems: NavItem[] = ['about', 'projects', 'skills', 'contact'];
 
   return (
     <div className="ml-auto flex items-center">
